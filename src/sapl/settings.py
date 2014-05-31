@@ -1,11 +1,6 @@
+# -*- coding: utf-8 -*-
 """
-Django settings for sapl project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
+Configurações Django para o projeto SAPL.
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -65,9 +60,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
