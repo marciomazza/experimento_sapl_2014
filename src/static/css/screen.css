@@ -7,3 +7,8 @@ body {
 .navbar-static-top {
   margin-bottom: 19px;
 }
+
+#titulo-barra {
+    padding-left: 54px;
+    background: transparent url("../img/brasao-mini.gif") no-repeat 14px 8px;
+}
