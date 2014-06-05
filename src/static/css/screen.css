@@ -1,0 +1,9 @@
+/* Estilos específicos do SAPL */
+
+body {
+  min-height: 2000px;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
