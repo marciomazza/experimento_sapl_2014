@@ -1,7 +1,7 @@
 /* Estilos específicos do SAPL */
 
 body {
-  min-height: 2000px;
+  padding-bottom: 40px;
 }
 
 .navbar-static-top {
@@ -11,4 +11,8 @@ body {
 #titulo-barra {
     padding-left: 54px;
     background: transparent url("../img/brasao-mini.gif") no-repeat 14px 8px;
+}
+
+.linha-areas {
+    margin-top: 10px;
 }
