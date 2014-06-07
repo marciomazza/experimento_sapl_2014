@@ -26,7 +26,6 @@
   </head>
 
   <body>
-
     <!-- Static navbar -->
     <div class="navbar navbar-default navbar-static-top" role="navigation">
       <div class="container">
@@ -51,7 +50,7 @@
                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
               </form>
             </li>
-            <li><a href="#">Login</a></li>
+            <li><a href="{% url 'login' %}?next={{ current_path }}">Login</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -62,7 +61,6 @@
         {% block main-content %}{% endblock %}
       </div>
     </div> <!-- /container -->
-
 
     <!-- JavaScript ================================================== -->
     <script src="{{ STATIC_URL }}third-party/jquery.min.js"></script>
