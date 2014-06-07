@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
 def index(request):
-    """Index page view"""
+    """Pagina Inicial"""
 
     return render(request, 'home.html')
