@@ -3,7 +3,9 @@ South==0.8.4
 Pillow==2.4.0
 gunicorn==18.0
 gevent==1.0.1
-django-crispy-forms==1.4.0
+# django-crispy-forms==1.4.0
+# Usando DEV por https://github.com/maraujop/django-crispy-forms/issues/268
+git+git://github.com/maraujop/django-crispy-forms.git@dev#egg=django-crispy-forms
 
 # para desevolvimento
 coverage==3.7.1
