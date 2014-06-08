@@ -3,6 +3,7 @@ South==0.8.4
 Pillow==2.4.0
 gunicorn==18.0
 gevent==1.0.1
+django-crispy-forms==1.4.0
 
 # para desevolvimento
 coverage==3.7.1
