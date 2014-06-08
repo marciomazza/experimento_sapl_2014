@@ -50,7 +50,27 @@
                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
               </form>
             </li>
+            {% if not user.is_authenticated %}
             <li><a href="{% url 'login' %}?next={{ current_path }}">Login</a></li>
+            {% else %}
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-user"></span>&nbsp;
+                {% if user.first_name or user.last_name %}
+                  {{ user.get_full_name }}
+                {% else %}
+                  {{ user.username }}
+                {% endif %}
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'logout' %}?next={{ current_path }}">
+                  Sair</a></li>
+              </ul>
+            </li>
+
+            {% endif %}
           </ul>
         </div><!--/.nav-collapse -->
       </div>

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Hidden
-from django.contrib.auth.views import login as default_login
+import django.contrib.auth.views
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
 
 def index(request):
     """Página Inicial"""
@@ -29,4 +29,8 @@ def login(request):
     helper.add_input(Hidden('next', next_path))
     helper.add_input(Submit('submit', 'Submit'))
 
-    return default_login(request, extra_context={'helper': helper})
+    return django.contrib.auth.views.login(request, extra_context={'helper': helper})
+
+def logout(request):
+    django.contrib.auth.views.logout(request)
+    return HttpResponseRedirect(request.GET.get('next', '/'))
