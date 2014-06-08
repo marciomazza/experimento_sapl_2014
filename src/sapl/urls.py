@@ -1,6 +1,7 @@
+from crispy_forms.layout import Submit
 from django.conf.urls import patterns, include, url
-
 from django.contrib import admin
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -8,3 +9,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'home.views.login', name='login'),
 )
+
+# ajuste (executado no inicio da aplicacao)
+Submit.field_classes = 'btn btn-default'
