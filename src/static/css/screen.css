@@ -13,6 +13,10 @@ body {
     background: transparent url("../img/brasao-mini.gif") no-repeat 14px 8px;
 }
 
-.linha-areas {
+#areas .row {
     margin-top: 10px;
+}
+
+#areas .row a {
+    color: #333;
 }

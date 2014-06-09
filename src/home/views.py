@@ -6,10 +6,12 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
+from .areas import areas_em_pares
+
 def index(request):
     """Página Inicial"""
 
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'areas': areas_em_pares})
 
 def login(request):
     """Página de Login"""

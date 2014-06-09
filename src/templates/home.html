@@ -20,146 +20,28 @@
   </p>
 </div>
 
-<div class="row linha-areas">
-  <div class="col-md-6">
-    <div class="media">
-      <a class="pull-left" href="#">
-        <img class="media-object" src="{{ STATIC_URL }}img/icon_mesa_diretora.gif" alt="...">
-      </a>
-      <div class="media-body">
-        <h3 class="media-heading">Mesa Diretora</h3>
-        <p>
-          Órgão colegiado, composto de no mínimo três membros efetivos - Presidente e 1º
-          e 2º Secretários - a quem cabe a direção dos trabalhos legislativos. Os
-          parlamentares integrantes da Mesa Diretora são eleitos por seus pares na
-          primeira reunião de instalação do período legislativo, para um mandato de dois
-          anos.
-        </p>
+<div id="areas">
+  {% for par_areas in areas %}
+  <div class="row">
+    {% for area in par_areas %}
+    <div class="col-md-6">
+      <div class="media">
+        <a class="pull-left" href="{{ area.caminho }}">
+          <img class="media-object" src="{{ STATIC_URL }}img/{{ area.icone }}"
+               alt="Ícone de '{{ area.nome }}'">
+        </a>
+        <div class="media-body">
+        <a href="{{ area.caminho }}">
+          <h3 class="media-heading">{{ area.nome }}</h3>
+          <p>
+            {{ area.descricao}}
+          </p>
+        </a>
+        </div>
       </div>
     </div>
+    {% endfor %}
   </div>
-  <div class="col-md-6">
-    <div class="media">
-      <a class="pull-left" href="#">
-        <img class="media-object" src="{{ STATIC_URL }}img/icon_comissoes.gif" alt="...">
-      </a>
-      <div class="media-body">
-        <h3 class="media-heading">Comissões</h3>
-        <p>
-          Órgãos da Casa Legislativa, de natureza técnica especializada e que têm por
-          objetivo prestar melhores esclarecimentos aos parlamentares para a tomada de
-          decisões. Assim, as comissões elaboram estudos, pareceres a respeito de
-          determinados projetos de lei e investigação de irregularidades sobre o fato
-          determinado.
-        </p>
-      </div>
-    </div>
-  </div>
+  {% endfor %}
 </div>
-
-<div class="row linha-areas">
-  <div class="col-md-6">
-    <div class="media">
-      <a class="pull-left" href="#">
-        <img class="media-object" src="{{ STATIC_URL }}img/icon_parlamentares.gif" alt="...">
-      </a>
-      <div class="media-body">
-        <h3 class="media-heading">Parlamentares</h3>
-        <p>
-          O Poder Legislativo, exercido pelo sistema de representação, tem nos
-          parlamentares a sua expressão máxima. Devem transformar os anseios de seus
-          representados em ações diretas, na forma de leis ou buscando junto do Executivo
-          obras e atos que beneficiem a sua comunidade. Possuem funções legisladora,
-          administrativa, julgadora e de fiscalização sobre a conduta do Executivo.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="media">
-      <a class="pull-left" href="#">
-        <img class="media-object" src="{{ STATIC_URL }}img/icon_ordem_dia.gif" alt="...">
-      </a>
-      <div class="media-body">
-        <h3 class="media-heading">Ordem do Dia</h3>
-        <p>
-          Utilizada para se determinar quais projetos serão discutidos e votados. A
-          responsabilidade pela elaboração da Ordem do Dia é definida no Regimento
-          Interno que, em geral, dá poderes ao Presidente da Casa Legislativa para a sua
-          elaboração. Também, pode ficar a cargo de um colégio de líderes dos partidos
-          políticos.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row linha-areas">
-  <div class="col-md-6">
-    <div class="media">
-      <a class="pull-left" href="#">
-        <img class="media-object" src="{{ STATIC_URL }}img/icon_plenarias.gif" alt="...">
-      </a>
-      <div class="media-body">
-        <h3 class="media-heading">Sessão Plenária</h3>
-        <p>
-          Foro apropriado para a tomada de decisões sobre os projetos de lei e outras
-          matérias legislativas ou administrativas, aprovadas ou rejeitadas em votação
-          pelos parlamentares. É dirigida pela Mesa Diretora de acordo com o Regimento
-          Interno da Casa. As decisões votadas em plenário são soberanas e prevalecem
-          sobre interesses ou vontades individuais.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="media">
-      <a class="pull-left" href="#">
-        <img class="media-object" src="{{ STATIC_URL }}img/icon_materia_legislativa.gif" alt="...">
-      </a>
-      <div class="media-body">
-        <h3 class="media-heading">Matérias Legislativas</h3>
-        <p>
-          Tem início com o processo de criação de lei e a apresentação de projeto no
-          Poder Legislativo. Na apreciação de matérias, podem haver eventuais conflitos
-          de interpretação ou de entendimento entre o que estabelece o Regimento Interno
-          da Casa e a Lei Orgânica do Município. Nestes casos, prevalece a Lei Orgânica.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row linha-areas">
-  <div class="col-md-6">
-    <div class="media">
-      <a class="pull-left" href="#">
-        <img class="media-object" src="{{ STATIC_URL }}img/icon_normas_juridicas.gif" alt="...">
-      </a>
-      <div class="media-body">
-        <h3 class="media-heading">Normas Jurídicas</h3>
-        <p>
-          Nos municípios, referem-se as emendas à Lei Orgânica, as leis complementares,
-          as leis ordinárias, os decretos legislativos e as resoluções.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="media">
-      <a class="pull-left" href="#">
-        <img class="media-object" src="{{ STATIC_URL }}img/icon_relatorios.gif" alt="...">
-      </a>
-      <div class="media-body">
-        <h3 class="media-heading">Relatórios</h3>
-        <p>
-          Contém informações estatísticas sobre a produção legislativa dos parlamentares
-          e da Casa, dispostas e agrupadas de diferentes formas de acordo com parâmetros
-          fornecidos.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
 {% endblock %}
