@@ -1,15 +1,10 @@
-Django==1.6.5
-South==0.8.4
+https://www.djangoproject.com/download/1.7.b4/tarball/
 Pillow==2.4.0
-gunicorn==18.0
-gevent==1.0.1
-# django-crispy-forms==1.4.0
 # Usando DEV por https://github.com/maraujop/django-crispy-forms/issues/268
 git+git://github.com/maraujop/django-crispy-forms.git@dev#egg=django-crispy-forms
 
 # para desevolvimento
 coverage==3.7.1
 django-debug-toolbar==1.2.1
-Sphinx==1.2.2
 ipython==2.1.0
 ipdb==0.8
