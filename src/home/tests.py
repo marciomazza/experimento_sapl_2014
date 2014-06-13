@@ -10,7 +10,6 @@ class ConfiguracaoTestCase(TestCase):
         response = self.client.get('/admin', follow=True)
         self.assertContains(response, 'Admin')
 
-
 class LoginTestCase(WebTest):
 
     def setUp(self):
@@ -46,7 +45,7 @@ class LoginTestCase(WebTest):
         form['username'], form['password'] = 'jfirmino', '123'
         return form.submit()
 
-    def test_login_acontece(self):
+    def test_login_funciona(self):
         self.do_login_form(next='/zzzz')
         self.assertEquals(self.user.pk, self.app.session['_auth_user_id'])
 
@@ -59,3 +58,16 @@ class LoginTestCase(WebTest):
         res = self.do_login_form(next='/login/')
         self.assertEquals(res.url, 'http://testserver/')
 
+    def do_logout(self, next):
+        self.assertTrue(self.client.login(username='jfirmino', password='123'))
+        # o usuário está logado
+        self.assertEquals(self.user.pk, self.client.session['_auth_user_id'])
+        return self.client.get('/logout/?next=' + next)
+
+    def test_logout_funciona(self):
+        self.do_logout('/')
+        self.assertTrue('_auth_user_id' not in self.client.session)
+
+    def test_logout_redireciona_para_origem(self):
+        res = self.do_logout('/zzzz')
+        self.assertEquals(res.url, 'http://testserver/zzzz')
