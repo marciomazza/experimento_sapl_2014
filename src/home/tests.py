@@ -39,17 +39,23 @@ class LoginTestCase(WebTest):
         self.assertContains(response, 'Joao Firmino')
         self.assertContains(response, '<a href="/logout/?next=/">Sair</a>', html=True)
 
-    def do_login_form(self):
+    def do_login_form(self, next):
         # estamos na página '/zzzz'
-        pagina_login = self.app.get('/login/?next=/zzzz')
+        pagina_login = self.app.get('/login/?next=' + next)
         form = pagina_login.forms['login-form']
         form['username'], form['password'] = 'jfirmino', '123'
         return form.submit()
 
     def test_login_acontece(self):
-        self.do_login_form()
+        self.do_login_form(next='/zzzz')
         self.assertEquals(self.user.pk, self.app.session['_auth_user_id'])
 
     def test_login_redireciona_para_origem(self):
-        res = self.do_login_form()
-        self.assertTrue(res.url.endswith('/zzzz'))
+        res = self.do_login_form(next='/zzzz')
+        self.assertEquals(res.url, 'http://testserver/zzzz')
+
+    def test_login_da_propria_pagina_de_login_redireciona_para_home(self):
+        # estamos na página '/login' e clicamos no link Login
+        res = self.do_login_form(next='/login/')
+        self.assertEquals(res.url, 'http://testserver/')
+
