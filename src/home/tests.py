@@ -1,40 +1,55 @@
+# -*- coding: utf-8 -*-
 from django.test import TestCase
-from django.test import Client
 from django.contrib.auth.models import User
+from django_webtest import WebTest
+
 
 class ConfiguracaoTestCase(TestCase):
 
     def test_admin_disponivel(self):
-        c = Client()
-        response = c.get('/admin', follow=True)
+        response = self.client.get('/admin', follow=True)
         self.assertContains(response, 'Admin')
 
-class LoginTestCase(TestCase):
+
+class LoginTestCase(WebTest):
+
+    def setUp(self):
+        # usuario sem nome completo
+        self.user = User.objects.create_user('jfirmino', password='123')
 
     def test_login_aparece_na_barra_para_usuario_nao_logado(self):
-        c = Client()
-        response = c.get('/')
+        response = self.client.get('/')
         self.assertContains(response, '<a href="/login/?next=/">Login</a>')
 
     def test_username_do_usuario_logado_aparece_na_barra(self):
-        c = Client()
-        # usuario sem nome completo
-        User.objects.create_user('jfirmino', password='123')
-        self.assertTrue(c.login(username='jfirmino', password='123'))
-        response = c.get('/')
+        self.assertTrue(self.client.login(username='jfirmino', password='123'))
+        response = self.client.get('/')
         self.assertNotContains(response, '<a href="/login/?next=/">Login</a>', html=True)
         self.assertContains(response, 'jfirmino')
         self.assertContains(response, '<a href="/logout/?next=/">Sair</a>', html=True)
 
     def test_nome_completo_do_usuario_logado_aparece_na_barra(self):
-        c = Client()
-        # usuario COM nome completo
-        User.objects.create_user(username='jfirmino',
-                                 password='123',
-                                 first_name='Joao',
-                                 last_name='Firmino')
-        self.assertTrue(c.login(username='jfirmino', password='123'))
-        response = c.get('/')
+        # nome completo para o usuario
+        self.user.first_name = 'Joao'
+        self.user.last_name = 'Firmino'
+        self.user.save()
+        self.assertTrue(self.client.login(username='jfirmino', password='123'))
+        response = self.client.get('/')
         self.assertNotContains(response, '<a href="/login/?next=/">Login</a>', html=True)
         self.assertContains(response, 'Joao Firmino')
         self.assertContains(response, '<a href="/logout/?next=/">Sair</a>', html=True)
+
+    def do_login_form(self):
+        # estamos na página '/zzzz'
+        pagina_login = self.app.get('/login/?next=/zzzz')
+        form = pagina_login.forms['login-form']
+        form['username'], form['password'] = 'jfirmino', '123'
+        return form.submit()
+
+    def test_login_acontece(self):
+        self.do_login_form()
+        self.assertEquals(self.user.pk, self.app.session['_auth_user_id'])
+
+    def test_login_redireciona_para_origem(self):
+        res = self.do_login_form()
+        self.assertTrue(res.url.endswith('/zzzz'))

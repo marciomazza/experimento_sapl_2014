@@ -17,6 +17,7 @@ def login(request):
     """Página de Login"""
 
     helper = FormHelper()
+    helper.form_id = 'login-form'
     helper.form_class = 'form-horizontal'
     helper.label_class = 'col-lg-1'
     helper.field_class = 'col-lg-3'
