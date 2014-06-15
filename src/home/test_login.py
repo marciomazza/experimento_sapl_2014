@@ -32,44 +32,43 @@ def test_nome_completo_do_usuario_logado_aparece_na_barra(client, user):
     assert 'Joao Firmino' in response.content
     assert html('<a href="/logout/?next=/">Sair</a>') in html(response.content)
 
-def __login(app, uri):
-    # estamos na página '/zzzz'
-    pagina_login = app.get(uri)
+@pytest.mark.parametrize("link_login,destino", [
+    # login a partir de uma pagina retorna para ela mesma
+    ('/login/?next=/zzzz', 'http://testserver/zzzz'),
+    ('/login/?next=/', 'http://testserver/'),
+    # login a partir da propria pagina de login redireciona para home
+    ('/login/?next=/login/', 'http://testserver/'),
+    # link sem destino de retorno (next) redireciona para home
+    ('/login/', 'http://testserver/'),
+])
+def test_login(app, user, link_login, destino):
+    pagina_login = app.get(link_login)
     form = pagina_login.forms['login-form']
-    form['username'], form['password'] = 'jfirmino', '123'
-    return form.submit()
+    form['username'] = 'jfirmino'
+    form['password'] = '123'
+    res = form.submit()
 
-def test_login_funciona(app, user):
-    __login(app, '/login/?next=/zzzz')
     assert user.pk == app.session['_auth_user_id']
+    assert res.url == destino
 
-def test_login_redireciona_para_origem(app, user):
-    res = __login(app, '/login/?next=/zzzz')
-    assert res.url == 'http://testserver/zzzz'
-
-def test_login_da_propria_pagina_de_login_redireciona_para_home(app, user):
-    # estamos na página '/login' e clicamos no link Login
-    res = __login(app, '/login/?next=/login/')
-    assert res.url == 'http://testserver/'
-
-def test_login_redireciona_para_home_por_padrao(app, user):
-    res = __login(app, '/login/')
-    assert res.url == 'http://testserver/'
-
-def __logout(client, uri, user):
+@pytest.mark.urls('home.teststub_urls')
+@pytest.mark.parametrize("link_logout,destino", [
+    # logout a partir de uma pagina retorna para ela mesma
+    ('/logout/?next=/zzzz', 'http://testserver/zzzz'),
+    ('/logout/?next=/', 'http://testserver/'),
+    # logout a partir da propria pagina de logout redireciona para home
+    ('/logout/?next=/logout/', 'http://testserver/'),
+    # link sem destino de retorno (next) redireciona para home
+    ('/logout/', 'http://testserver/'),
+])
+def test_logout(client, user, link_logout, destino):
+    # com um usuário logado ...
     assert client.login(username='jfirmino', password='123')
-    # o usuário está logado
     assert user.pk == client.session['_auth_user_id']
-    return client.get(uri)
 
-def test_logout_funciona(client, user):
-    __logout(client, '/logout/?next=/', user)
+    # ... acionamos o link de logout
+    res = client.get(link_logout, follow=True)
+    destino_real = res.redirect_chain[-1][0]
+
     assert '_auth_user_id' not in client.session
-
-def test_logout_redireciona_para_origem(client, user):
-    res = __logout(client, '/logout/?next=/zzzz', user)
-    assert res.url == 'http://testserver/zzzz'
-
-def test_logout_redireciona_para_home_por_padrao(client, user):
-    res = __logout(client, '/logout/', user)
-    assert res.url == 'http://testserver/'
+    assert destino_real == destino
