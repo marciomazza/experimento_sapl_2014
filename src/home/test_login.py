@@ -10,7 +10,7 @@ pytestmark = pytest.mark.django_db
 def user():
     return User.objects.create_user('jfirmino', password='123')
 
-def test_login_aparece_na_barra_para_usuario_nao_logado(client, user):
+def test_login_aparece_na_barra_para_usuario_nao_logado(client):
     response = client.get('/')
     assert '<a href="/login/?next=/">Login</a>' in response.content
 
