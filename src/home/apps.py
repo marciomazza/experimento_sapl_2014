@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.apps import AppConfig
 from crispy_forms.layout import Submit
+from django.apps import AppConfig
 
 
 class HomeConfig(AppConfig):

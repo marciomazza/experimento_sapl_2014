@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.utils.text import slugify
 
+
 TEXTOS = [u"""Mesa Diretora
 
 Órgão colegiado, composto de no mínimo três membros efetivos - Presidente e 1º

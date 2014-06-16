@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
+import django.contrib.auth.views
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Hidden
-import django.contrib.auth.views
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from .areas import areas_em_pares
+
 
 def index(request):
     """Página Inicial"""

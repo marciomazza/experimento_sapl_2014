@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.models import User
 import pytest
+from django.contrib.auth.models import User
 from django.test.html import parse_html as html
 
 

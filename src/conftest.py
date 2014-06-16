@@ -2,6 +2,7 @@
 import pytest
 from django_webtest import DjangoTestApp, WebTestMixin
 
+
 @pytest.fixture(scope='function')
 def app(request):
     """WebTest's TestApp.
